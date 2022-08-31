@@ -88,7 +88,8 @@ if st.session_state.Search:
   st.session_state
   tikiItems = np.array(tikiData["data"])
   lazadaItems = np.array(lazadaData["mods"]["listItems"])
-  shopeeItems = np.array(shopeeData["items"])
+#   shopeeItems = np.array(shopeeData["items"])
+  shopeeItems = lazadaItems
   items = np.array(list(zip(tikiItems,lazadaItems,shopeeItems))).flatten()
   row0 = """<div
     data-view-id="product_list_container"
