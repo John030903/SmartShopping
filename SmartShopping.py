@@ -83,7 +83,9 @@ if st.session_state.Search:
   tikiData = LoadDataFromWeb(TIKI_SEARCH.format(key))
   lazadaData = LoadDataFromWeb(LAZADA_SEARCH.format(key))
   shopeeData = LoadDataFromWeb(SHOPEE_SEARCH.format(key))
-
+  if 'key' not in st.session_state:
+    st.session_state['key'] = shopeeData
+  st.session_state
   tikiItems = np.array(tikiData["data"])
   lazadaItems = np.array(lazadaData["mods"]["listItems"])
   shopeeItems = np.array(shopeeData["items"])
