@@ -6,10 +6,14 @@ from numerize import numerize
 
 def LoadDataFromWeb(url):
   header = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36 Edg/104.0.1293.47'}
-  response = requests.get(url, headers = header)
+  response = requests.get(url)
   data = json.loads(response.content)
   return data
-
+def LoadDataFromWebTiki(url):
+    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.81 Safari/537.36 Edg/104.0.1293.47',}
+    response = requests.get(url, headers=headers)
+    data = json.loads(response.content)
+    return data
 def local_css(file_name):
     with open(file_name) as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
@@ -80,7 +84,7 @@ if st.session_state.Search:
   TIKI_SEARCH = "https://tiki.vn/api/v2/products?limit=48&include=advertisement&aggregations=2&trackity_id=a818abb0-b29b-a7e7-c95b-bfa1603a6b24&q={}&sort=top_seller"
   LAZADA_SEARCH = "https://www.lazada.vn/catalog/?_keyori=ss&ajax=true&from=input&isFirstRequest=true&page=1&q={}&spm=a2o4n.searchlist.search.go.5e594c25s1bBVU"
   SHOPEE_SEARCH = "https://shopee.vn/api/v4/search/search_items?by=sales&keyword={}&limit=60&newest=0&order=desc&page_type=search&scenario=PAGE_GLOBAL_SEARCH&version=2"
-  tikiData = LoadDataFromWeb(TIKI_SEARCH.format(key))
+  tikiData = LoadDataFromWebTiki(TIKI_SEARCH.format(key))
   lazadaData = LoadDataFromWeb(LAZADA_SEARCH.format(key))
   shopeeData = LoadDataFromWeb(SHOPEE_SEARCH.format(key))
   if 'key' not in st.session_state:
