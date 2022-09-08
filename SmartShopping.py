@@ -83,10 +83,10 @@ if st.session_state.Search:
   lazadaData = LoadDataFromWeb(LAZADA_SEARCH.format(key))
 #   shopeeData = LoadDataFromWeb(SHOPEE_SEARCH.format(key))
 
-  tikiItems = np.array(tikiData["data"])
-  lazadaItems = np.array(lazadaData["mods"]["listItems"])
+  # tikiItems = np.array(tikiData["data"])
+  # lazadaItems = np.array(lazadaData["mods"]["listItems"])
 #   shopeeItems = np.array(shopeeData["items"])
-  items = np.array(list(zip(tikiItems,lazadaItems))).flatten()
+  items = sorted(tikiData["data"]+lazadaData["mods"]["listItems"], key=lambda x: float(x["price"]))
   row0 = """<div
     data-view-id="product_list_container"
     class="ProductList__Wrapper-sc-1dl80l2-0 Kxajl">"""
