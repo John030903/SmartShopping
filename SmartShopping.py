@@ -73,7 +73,7 @@ def TikiFilter(item):
   except:
     standard = LazadaFilter(item)
   return standard
-st.image("10776305_s-400x370 copy.png")
+st.image("Icon.png")
 key = st.text_input(label="",placeholder="Nhập tên sản phẩm", key="Search")
 if st.session_state.Search:
   TIKI_SEARCH = "https://tiki.vn/api/v2/products?limit=48&include=advertisement&aggregations=2&trackity_id=a818abb0-b29b-a7e7-c95b-bfa1603a6b24&q={}&sort=top_seller"
