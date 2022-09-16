@@ -1,7 +1,6 @@
 import streamlit as st
 import requests
 import json
-import numpy as np
 from numerize import numerize
 
 def LoadDataFromWeb(url):
@@ -78,14 +77,9 @@ key = st.text_input(label="",placeholder="Nhập tên sản phẩm", key="Search
 if st.session_state.Search:
   TIKI_SEARCH = "https://tiki.vn/api/v2/products?limit=48&include=advertisement&aggregations=2&trackity_id=a818abb0-b29b-a7e7-c95b-bfa1603a6b24&q={}&sort=top_seller"
   LAZADA_SEARCH = "https://www.lazada.vn/catalog/?_keyori=ss&ajax=true&from=input&isFirstRequest=true&page=1&q={}&spm=a2o4n.searchlist.search.go.5e594c25s1bBVU"
-#   SHOPEE_SEARCH = "https://shopee.vn/api/v4/search/search_items?by=sales&keyword={}&limit=60&newest=0&order=desc&page_type=search&scenario=PAGE_GLOBAL_SEARCH&version=2"
   tikiData = LoadDataFromWeb(TIKI_SEARCH.format(key))
   lazadaData = LoadDataFromWeb(LAZADA_SEARCH.format(key))
-#   shopeeData = LoadDataFromWeb(SHOPEE_SEARCH.format(key))
 
-  # tikiItems = np.array(tikiData["data"])
-  # lazadaItems = np.array(lazadaData["mods"]["listItems"])
-#   shopeeItems = np.array(shopeeData["items"])
   items = sorted(tikiData["data"]+lazadaData["mods"]["listItems"], key=lambda x: float(x["price"]))
   row0 = """<div
     data-view-id="product_list_container"
@@ -289,11 +283,16 @@ if st.session_state.Search:
       if i != 0:
         price = price[:i] + "." + price[i:]
     return price
-  for item in items:
-    sd = TikiFilter(item)
+  prePrice = TikiFilter(items[0]).price
+  for i in range(1,len(items)):
+    sd = TikiFilter(items[i])
+    if ((sd.price - prePrice)/prePrice > 0.8) and (i < 10):
+      row0 = """<div
+      data-view-id="product_list_container"
+      class="ProductList__Wrapper-sc-1dl80l2-0 Kxajl">"""
+    prePrice = sd.price
     if sd.sold == 0 or float(sd.rating_average) < 4: continue
     rating_average = float(sd.rating_average)/5
     row0 += col.format(clickUrl=sd.clickUrl,linkImg=sd.thumbnail_url,name=sd.name,sold=numerize.numerize(int(sd.sold)),rating=rating_average,price=FormatPrice(sd.price))
   row0 += "</div>"
   st.markdown(row0,unsafe_allow_html= True)
-
