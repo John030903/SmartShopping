@@ -94,7 +94,7 @@ if st.session_state.Search:
   >
     <div class="style__StyledItem-sc-18svp8n-0 fkDgwT">
       <div class="thumbnail">
-        <img src= "{linkImg}" />
+        <img src= "{linkImg}" loading = "lazy" />
       </div>
       <div class="info">
         <div class="name">
