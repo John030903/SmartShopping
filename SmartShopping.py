@@ -25,19 +25,19 @@ class Standards:
   sold = 0
   price = 0
 
-def ShopeeFilter(item):
-  standard = Standards()
-  item_basic = item["item_basic"]
-  linkImg = "https://cf.shopee.vn/file/{imgid}_tn"
-  path = "https://shopee.vn/Tên tôi là Nguyễn Hoàng Khánh Duy-i.{shopid}.{itemid}?sp_atk=fe04f1e4-5cb6-440b-82fa-c2ec03fc36dd&xptdk=fe04f1e4-5cb6-440b-82fa-c2ec03fc36dd"
-  standard.clickUrl = path.format(shopid=item_basic["shopid"], itemid=item_basic["itemid"])
-  standard.thumbnail_url = linkImg.format(imgid = item_basic["image"])
-  standard.name = item_basic["name"]
-  standard.rating_average = item_basic["item_rating"]["rating_star"]
-  standard.sold = item_basic["historical_sold"]
-  strPrice = str(item_basic["price"])[:-5]
-  standard.price = int(strPrice)
-  return standard
+# def ShopeeFilter(item):
+#   standard = Standards()
+#   item_basic = item["item_basic"]
+#   linkImg = "https://cf.shopee.vn/file/{imgid}_tn"
+#   path = "https://shopee.vn/Tên tôi là Nguyễn Hoàng Khánh Duy-i.{shopid}.{itemid}?sp_atk=fe04f1e4-5cb6-440b-82fa-c2ec03fc36dd&xptdk=fe04f1e4-5cb6-440b-82fa-c2ec03fc36dd"
+#   standard.clickUrl = path.format(shopid=item_basic["shopid"], itemid=item_basic["itemid"])
+#   standard.thumbnail_url = linkImg.format(imgid = item_basic["image"])
+#   standard.name = item_basic["name"]
+#   standard.rating_average = item_basic["item_rating"]["rating_star"]
+#   standard.sold = item_basic["historical_sold"]
+#   strPrice = str(item_basic["price"])[:-5]
+#   standard.price = int(strPrice)
+#   return standard
 def LazadaFilter(item):
   try:
     standard = Standards()
