@@ -78,9 +78,9 @@ if st.session_state.Search:
   TIKI_SEARCH = "https://tiki.vn/api/v2/products?limit=100&include=advertisement&aggregations=2&trackity_id=a818abb0-b29b-a7e7-c95b-bfa1603a6b24&q={}&sort=top_seller"
   LAZADA_SEARCH = "https://www.lazada.vn/catalog/?_keyori=ss&ajax=true&from=search_history&isFirstRequest=true&page=1&q={}&spm=a2o4n.home.search.1.1905e182aP72Ub&sugg=camera_0_1"
   tikiData = LoadDataFromWeb(TIKI_SEARCH.format(key))
-  lazadaData = LoadDataFromWeb(LAZADA_SEARCH.format(key))
+#   lazadaData = LoadDataFromWeb(LAZADA_SEARCH.format(key))
 
-  items = sorted(tikiData["data"]+lazadaData["mods"]["listItems"], key=lambda x: float(x["price"]))
+  items = sorted(tikiData["data"], key=lambda x: float(x["price"]))
   row0 = """<div
     data-view-id="product_list_container"
     class="ProductList__Wrapper-sc-1dl80l2-0 Kxajl">"""
